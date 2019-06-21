@@ -3,11 +3,13 @@
 require_relative 'manufacturer_name.rb'
 class Carriage
   include ManufacturerName
+  include Validation
 
-  ATTRIBUTE_ERROR = 'Ошибка! Атрибут класса должен быть числом.'
   NOT_ENOUGH_CAPACITY = 'Ошибка! Вагон заполнен.'
 
   attr_reader :capacity
+
+  validate :capacity, :type, Numeric
 
   def initialize(capacity)
     @capacity = capacity
@@ -23,11 +25,5 @@ class Carriage
 
   def available_capacity
     @capacity - @occupied_capacity
-  end
-
-  protected
-
-  def validate!
-    raise ATTRIBUTE_ERROR if @capacity.class != Integer
   end
 end

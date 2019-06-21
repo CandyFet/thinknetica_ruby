@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative 'route.rb'
 require_relative 'station.rb'
+require_relative 'route.rb'
 require_relative 'train.rb'
 require_relative 'cargo_carriage.rb'
 require_relative 'cargo_train.rb'
@@ -11,6 +11,7 @@ require_relative 'manufacturer_name.rb'
 require_relative 'instance_counter.rb'
 require_relative 'validation.rb'
 require_relative 'carriage.rb'
+require_relative 'validation.rb'
 
 class Main
   CARRIAGE_TYPES = %i[cargo passenger].freeze

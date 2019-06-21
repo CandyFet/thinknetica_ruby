@@ -6,6 +6,10 @@ class PassengerTrain < Train
   include InstanceCounter
   include Validation
 
+  validate :number, :presence
+  validate :number, :type, String
+  validate :number, :format, NUMBER_PATTERN
+
   def initialize(number)
     super
   end

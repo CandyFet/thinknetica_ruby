@@ -10,11 +10,12 @@ class Train
   include Validation
 
   NUMBER_PATTERN = /^\w{3}-*\w{2}$/.freeze
-  NUMBER_ERROR = 'Ошибка! Допустимый формат номера поезда: три буквы или цифры в
-  любом порядке, необязательный дефис (может быть, а может нет) и еще 2 буквы
-  или цифры после дефиса.'
 
   attr_reader :number, :speed, :carriages
+
+  validate :number, :presence
+  validate :number, :type, String
+  validate :number, :format, NUMBER_PATTERN
 
   @@trains = {}
 
@@ -27,7 +28,6 @@ class Train
     @speed = 0
     @carriages = []
     @@trains[@number] = self
-    validate!
     register_instance
   end
 
@@ -94,7 +94,4 @@ class Train
     raise NotImplementedError
   end
 
-  def validate!
-    raise NUMBER_ERROR unless number =~ NUMBER_PATTERN
-  end
 end

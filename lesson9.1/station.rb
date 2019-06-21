@@ -7,9 +7,12 @@ class Station
   include Validation
 
   NAME_PATTERN = /^\w/.freeze
-  NAME_ERROR = 'Ошибка! Имя станции должно начинаться с цифры или с буквы'
 
   attr_reader :name, :trains
+
+  validate :name, :presence
+  validate :name, :type, String
+  validate :name, :format, NAME_PATTERN
 
   @stations = []
 
@@ -21,7 +24,6 @@ class Station
     @name = name
     @trains = []
     self.class.all << self
-    validate!
     register_instance
   end
 
@@ -41,9 +43,4 @@ class Station
     @name
   end
 
-  protected
-
-  def validate!
-    raise NAME_ERROR unless name =~ NAME_PATTERN
-  end
 end

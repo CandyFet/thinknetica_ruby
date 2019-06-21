@@ -6,14 +6,18 @@ class Route
   include InstanceCounter
   include Validation
 
-  CLASS_ERROR = 'Ошибка! В маршруте могут участвовать только станции.'
   LOGIC_ERROR = 'Ошибка! Начальная станция не должна равняться конечной.'
 
   attr_reader :stations
 
+  validate :start_station, :type, Station
+  validate :end_station, :type, Station
+
   def initialize(start_station, end_station)
+
+    raise LOGIC_ERROR if start_station == end_station
+
     @stations = [start_station, end_station]
-    validate!
     register_instance
   end
 
@@ -31,10 +35,5 @@ class Route
     [stations.first, stations.last].join(' - ')
   end
 
-  protected
 
-  def validate!
-    raise CLASS_ERROR unless stations.all? { |station| station.is_a?(Station) }
-    raise LOGIC_ERROR if stations.first == stations.last
-  end
 end
