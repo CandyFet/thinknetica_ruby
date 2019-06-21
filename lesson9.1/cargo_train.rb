@@ -1,0 +1,18 @@
+# frozen_string_literal: true
+
+require_relative 'instance_counter.rb'
+require_relative 'validation.rb'
+class CargoTrain < Train
+  include InstanceCounter
+  include Validation
+
+  def initialize(number)
+    super
+  end
+
+  protected
+
+  def attachable_carriage?(carriage)
+    carriage.is_a?(CargoCarriage)
+  end
+end
