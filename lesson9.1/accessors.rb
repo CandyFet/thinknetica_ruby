@@ -10,9 +10,10 @@ module Accessors
       define_method(arg) { instance_variable_get(var) }
       define_method(prefix) { instance_variable_get(var_with_history) }
 
-      define_method(arg.to_s.to_sym) do |value|
+      define_method("#{arg}=") do |value|
+        previous_value = instance_variable_get(var)
         history = instance_variable_get(var_with_history) || []
-        history << value
+        history << previous_value
         instance_variable_set(var_with_history, history)
         instance_variable_set(var, value)
       end

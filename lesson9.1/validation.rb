@@ -25,7 +25,7 @@ module Validation
     def valid?
       validate!
       true
-    rescue StandardError
+    rescue StandardError, VALIDATION_ERROR
       false
     end
 
@@ -36,16 +36,11 @@ module Validation
         var_name = "@#{validation[:name]}".to_sym
         value = instance_variable_get(var_name)
 
-        case validation[:type]
-        when :presence then presence_validation(value)
-        when :format then format_validation(value, validation[:format])
-        when :type then type_valdiation(value, validation[:format])
-        else raise StandardError, VALIDATION_ERROR
-        end
+        send("#{validation[:type]}_validation", value, *validation[:format])
       end
     end
 
-    def presence_validation(value)
+    def presence_validation(value, _)
       raise StandardError, PRESENCE_ERROR if value.nil? || value == ''
     end
 
