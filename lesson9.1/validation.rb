@@ -40,7 +40,7 @@ module Validation
       end
     end
 
-    def presence_validation(value, _)
+    def presence_validation(value)
       raise StandardError, PRESENCE_ERROR if value.nil? || value == ''
     end
 

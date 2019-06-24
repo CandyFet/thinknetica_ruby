@@ -13,7 +13,7 @@ module Accessors
       define_method("#{arg}=") do |value|
         previous_value = instance_variable_get(var)
         history = instance_variable_get(var_with_history) || []
-        history << previous_value
+        history << previous_value unless history.empty?
         instance_variable_set(var_with_history, history)
         instance_variable_set(var, value)
       end

@@ -18,6 +18,7 @@ class Route
     raise LOGIC_ERROR if start_station == end_station
 
     @stations = [start_station, end_station]
+    validate!
     register_instance
   end
 
